@@ -1,0 +1,16 @@
+language: cpp
+
+cache: ccache
+
+compiler:
+- gcc
+
+script:
+- mkdir -p build && cd build && cmake .. && make && make test
+
+notifications:
+  email:
+    on_success: never
+    on_failure: never
+  slack:
+    secure: WsFqhoP+o+Z+Oof2UCpbW/Cgb9QR9Vpo9i4CdY1rpGU2XfiniaoIMX8+HEhoCg+Jfh4w6V5AlmZ3C8U7yJWpo1lEFDqwkmkJWWDspUAni/jjEfVHGn1b7A9Q9mm/qRCPu/6EHBtQLCjOS+zDeywZUGrwNMF128gDwK39ZG/JSJ31br6mY8skJ4kweL0iEunrq/C0k54ib6HX1UAQgxjGbfNV8hQEtWTxTkwcAi0afGPoYzqVdXDa4XYLkwDA85iaBdykHn2EtCtk6TQeYa91FeQrHY/bC4i1pxfZIr6sOz6k6VJng9kcdflBWNCz38zTDc5me+ovaLG62BkNLOMq9AONESK+Vv0oXwF/sAeFbb0v0a4GDd6pebuyZD57zipMij++Yh6vUgk+7ZRepv0sQinV3JAH2I1uKSZGhpVygtEYzumtxfhLofWW6WoFikMMaZntc1233H7dn3jJc2X0NVTxtvtvQWIkE3gzVTrsslMlbwJKkft3EBqVLEbCqZ4DZfKWtLLI5I+qhhSTEMf9wn8AWTkE4x2g5OGJTURgirBdiKwzdFmS+FkrieBZkW75jkRKwIyuoBaYvPjvbp7imo57GXnii8P3/bsupYfHsE6M+/e1CPtoxuDoYSVlgdIL4vSquE3htASLnKw+hkTay7goK1hJrbQoLQdbGgERl4Y=
