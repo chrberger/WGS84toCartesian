@@ -25,8 +25,7 @@
 #ifndef WGS84TOCARTESIAN_HPP
 #define WGS84TOCARTESIAN_HPP
 
-#include <math.h>
-
+#include <cmath>
 #include <array>
 #include <limits>
 
@@ -38,6 +37,9 @@ namespace wgs84 {
  * @return std::array<double, 2> Cartesian position after transforming WGS84Position using the given WGS84Reference using Mercator projection.
  */
 inline std::array<double, 2> toCartesian(const std::array<double, 2> &WGS84Reference, const std::array<double, 2> &WGS84Position) {
+#ifndef M_PI
+    constexpr double M_PI = 3.141592653589793;
+#endif
     constexpr double DEG_TO_RAD{M_PI / 180.0};
     constexpr double HALF_PI{M_PI / 2.0};
     constexpr double EPSILON10{1.0e-10};
