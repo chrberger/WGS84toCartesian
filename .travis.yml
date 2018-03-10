@@ -5,6 +5,17 @@ cache: ccache
 compiler:
 - gcc
 
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-6
+
+install:
+- "[ $CC = gcc ] && export CC=gcc-6 || true"
+- "[ $CXX = g++ ] && export CXX=g++-6 || true"
+
 script:
 - mkdir -p build && cd build && cmake .. && make && make test
 
