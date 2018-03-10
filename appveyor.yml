@@ -1,0 +1,36 @@
+version: v{build}
+skip_tags: true
+build:
+  verbosity: quiet
+
+
+environment:
+  matrix:
+    - CMAKE_GENERATOR: "Visual Studio 14 2015 Win64"
+      CMAKE_CONFIG: Debug
+
+
+build_script:
+  - del "C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
+  - cmake -E make_directory Win64
+  - cd Win64
+  - cmake "-G%CMAKE_GENERATOR%" -D CMAKE_BUILD_TYPE=%CMAKE_CONFIG% ..
+  - cmake --build .
+  - cd ..
+
+
+test_script:
+  - ps:
+  - cd Win64
+  - ctest --output-on-failure -C "%CMAKE_CONFIG%"
+
+
+notifications:
+- provider: Slack
+  auth_token:
+    secure: Tt0Bj1T4fHiCygiv2GpvUumDR+XmqV14ginGuIOfDzYg6DutaZ4BLdgTMs0vsP79ojx4OWLO7DxejmkEVearHe7EtCrrGZivtRUOH8gEkTc=
+  channel: '#appveyor'
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: true
+
