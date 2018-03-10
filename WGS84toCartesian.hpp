@@ -25,8 +25,12 @@
 #ifndef WGS84TOCARTESIAN_HPP
 #define WGS84TOCARTESIAN_HPP
 
-#include <array>
+#ifdef WIN32
+    #define _USE_MATH_DEFINES
+#endif
 #include <cmath>
+
+#include <array>
 #include <limits>
 
 namespace wgs84 {
