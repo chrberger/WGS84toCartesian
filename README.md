@@ -20,8 +20,8 @@ This library is partially based on the work from Gerald I. Evenden on proj 4.3 r
 * Written in highly portable and high quality C++11
 * **Available as header-only, single-file distribution - just drop [WGS84toCartesian.hpp](https://raw.githubusercontent.com/chrberger/WGS84toCartesian/master/WGS84toCartesian.hpp) into your project, `#include "WGS84toCartesian.hpp"`, and compile your project with a modern C++ compiler (C++11 or newer)**
 * The positions are passed to and returned from the functions as [`std::array`](http://en.cppreference.com/w/cpp/container/array) so that this library integrates well with other math libraries (e.g., Eigen).
-* Convert a given WGS84 position to a Cartesian position using a given WGS84 reference position using Mercator projection: `std::array<double, 2> cartesianPosition = wgs84::toCartesian({52.247041, 10.575830} /* reference position */, {52.248091, 10.57417} /* position to be converted */));`
-* Approximate a given Cartesian position with a WGS84 position using a given WGS84 reference position using Mercator projection: `std::array<double, 2> approximatedWGS84Position = wgs84::fromCartesian({52.247041, 10.575830} /* reference position */, {-154.48, 441.75} /* position to be converted */);`
+* Convert a given WGS84 position to a Cartesian position using a given WGS84 reference position with Mercator projection: `std::array<double, 2> cartesianPosition = wgs84::toCartesian({52.247041, 10.575830} /* reference position */, {52.248091, 10.57417} /* position to be converted */));`
+* Approximate a given Cartesian position with a WGS84 position using a given WGS84 reference position with Mercator projection: `std::array<double, 2> approximatedWGS84Position = wgs84::fromCartesian({52.247041, 10.575830} /* reference position */, {-154.48, 441.75} /* position to be converted */);`
 
 
 ## Dependencies
