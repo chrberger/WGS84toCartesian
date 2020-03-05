@@ -124,7 +124,7 @@ inline std::array<double, 2> fromCartesian(const std::array<double, 2> &WGS84Ref
     std::array<double, 2> approximateWGS84Position{WGS84Reference};
     std::array<double, 2> cartesianResult{toCartesian(WGS84Reference, approximateWGS84Position)};
 
-    double dPrev{std::numeric_limits<double>::max()};
+    double dPrev{(std::numeric_limits<double>::max)()};
     double d{std::abs(CartesianPosition[1] - cartesianResult[1])};
     while ((d < dPrev) && (d > EPSILON10)) {
         approximateWGS84Position[0] = approximateWGS84Position[0] + signLat * incLat;
@@ -133,7 +133,7 @@ inline std::array<double, 2> fromCartesian(const std::array<double, 2> &WGS84Ref
         d                           = std::abs(CartesianPosition[1] - cartesianResult[1]);
     }
 
-    dPrev = std::numeric_limits<double>::max();
+    dPrev = (std::numeric_limits<double>::max)();
     d     = std::abs(CartesianPosition[0] - cartesianResult[0]);
     while ((d < dPrev) && (d > EPSILON10)) {
         approximateWGS84Position[1] = approximateWGS84Position[1] + signLon * incLon;
