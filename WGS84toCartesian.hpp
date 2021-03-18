@@ -115,18 +115,18 @@ inline std::array<double, 2> toCartesian(const std::array<double, 2> &WGS84Refer
  * @return std::array<double, 2> Approximating a WGS84 position from a given CartesianPosition based on a given WGS84Reference using Mercator projection.
  */
 inline std::array<double, 2> fromCartesian(const std::array<double, 2> &WGS84Reference, const std::array<double, 2> &CartesianPosition) {
-    constexpr double EPSILON10{1.0e-2};
-    constexpr double incLon{1e-5};
+    constexpr double EPSILON10{1.0e-4};
     const int32_t signLon{(CartesianPosition[0] < 0) ? -1 : 1};
-    constexpr double incLat{incLon};
     const int32_t signLat{(CartesianPosition[1] < 0) ? -1 : 1};
 
     std::array<double, 2> approximateWGS84Position{WGS84Reference};
     std::array<double, 2> cartesianResult{toCartesian(WGS84Reference, approximateWGS84Position)};
 
     double dPrev{(std::numeric_limits<double>::max)()};
-    double d{std::abs(CartesianPosition[1] - cartesianResult[1])};
+    double d = std::abs(CartesianPosition[1] - cartesianResult[1]);
+    double incLat{1e-6};
     while ((d < dPrev) && (d > EPSILON10)) {
+        incLat = std::max(1e-6 * d, static_cast<double>(1e-9));
         approximateWGS84Position[0] = approximateWGS84Position[0] + signLat * incLat;
         cartesianResult             = toCartesian(WGS84Reference, approximateWGS84Position);
         dPrev                       = d;
@@ -135,7 +135,9 @@ inline std::array<double, 2> fromCartesian(const std::array<double, 2> &WGS84Ref
 
     dPrev = (std::numeric_limits<double>::max)();
     d     = std::abs(CartesianPosition[0] - cartesianResult[0]);
+    double incLon{1e-6};
     while ((d < dPrev) && (d > EPSILON10)) {
+        incLon = std::max(1e-6 * d, static_cast<double>(1e-9));
         approximateWGS84Position[1] = approximateWGS84Position[1] + signLon * incLon;
         cartesianResult             = toCartesian(WGS84Reference, approximateWGS84Position);
         dPrev                       = d;
